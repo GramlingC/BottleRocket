@@ -13,6 +13,8 @@ public class OnButtonClick : MonoBehaviour {
         else if (command == "quit")
             Application.Quit();
 
+        else if (command == "home")
+            SceneManager.LoadScene("MainMenu");
         
 
 
