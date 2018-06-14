@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class OnButtonClick : MonoBehaviour {
-    
+    public int numPlayer = 1;
+
     public void OnButtonDown(string command)
     {
         if (command == "start")
@@ -15,9 +16,16 @@ public class OnButtonClick : MonoBehaviour {
 
         else if (command == "home")
             SceneManager.LoadScene("MainMenu");
-        
 
+        else if (command == "about")
+            SceneManager.LoadScene("Rules");
 
+        else if (command == "add") { if (numPlayer != 10) numPlayer++; }
+
+        else if (command == "sub") { if (numPlayer != 0) numPlayer--; }
+
+        else if (command == "prompt") //to ask players to play again
+            SceneManager.LoadScene("EndGame");
 
     }
 }
