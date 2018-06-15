@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 179968132}
   m_Layer: 0
   m_Name: Number of players
-  m_TagString: Untagged
+  m_TagString: NumPlayerUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -336,7 +336,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 2
 --- !u!222 &179968133
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -973,7 +973,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bddc6ad5ce85fd34287e3ca377f0968e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numPlayer: 1
 --- !u!114 &1248592456
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,33 +2,82 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class OnButtonClick : MonoBehaviour {
-    public GameObject numPlayer; //temporary placement
+    private RealGameManager rgm;
+    private Text numPlayers;
 
     public void OnButtonDown(string command)
     {
+        if(!rgm)
+            rgm = GameObject.FindGameObjectWithTag("RealGameManager").GetComponent<RealGameManager>();
+
         if (command == "start")
+        {
             SceneManager.LoadScene("Game");
+            rgm.gameRunning = true;
+        }
+
 
         else if (command == "quit")
+        {
             Application.Quit();
+        }
 
-        else if (command == "home") //return to main menu
+
+        else if (command == "home")
+        {
+            //return to main menu
             SceneManager.LoadScene("MainMenu");
+            rgm.reset();
+        }
 
-        else if (command == "about")
+        else if (command == "about"){
             SceneManager.LoadScene("Rules");
+        }
 
-        else if (command == "partySize") //go to change number of players
+        else if (command == "partySize")
+        {
+            //go to change number of players
             SceneManager.LoadScene("PartySize");
+            rgm.reset();
+        }
 
-        else if (command == "add") { /*if (numPlayer != 10) numPlayer++;*/ }
+        else if (command == "add")
+        {
+            if (rgm.numPlayers < 10)
+            {
+                rgm.numPlayers++;
+            }
+                
+            if (!numPlayers)
+            {
+                numPlayers = GameObject.FindGameObjectWithTag("NumPlayerUI").GetComponent<Text>();
+            }
+            numPlayers.text = rgm.numPlayers.ToString();
+        }
 
-        else if (command == "sub") { /*if (numPlayer != 0) numPlayer--;*/ }
+        else if (command == "sub")
+        {
+            if (rgm.numPlayers > 2)
+            {
+                rgm.numPlayers--;
+            }
+                
+            if (!numPlayers)
+            {
+                numPlayers = GameObject.FindGameObjectWithTag("NumPlayerUI").GetComponent<Text>();
+            }
+            numPlayers.text = rgm.numPlayers.ToString();
+        }
 
-        else if (command == "prompt") //to ask players to play again
+        else if (command == "prompt")
+        {
             SceneManager.LoadScene("EndGame");
+            rgm.reset();
+        }
+            
 
 
     }

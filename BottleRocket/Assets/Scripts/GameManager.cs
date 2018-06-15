@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour {
 
     // Use this for initialization
     private static bool created = false;
+    private RealGameManager rgm;
 
     void Awake()
     {
@@ -22,6 +23,9 @@ public class GameManager : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.Escape))
         {
             SceneManager.LoadScene("MainMenu");
+            if (!rgm)
+                rgm = GameObject.FindGameObjectWithTag("RealGameManager").GetComponent<RealGameManager>();
+            rgm.reset();
         }
 	}
 }
