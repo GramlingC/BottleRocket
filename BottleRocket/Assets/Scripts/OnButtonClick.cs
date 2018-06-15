@@ -77,8 +77,5 @@ public class OnButtonClick : MonoBehaviour {
             SceneManager.LoadScene("EndGame");
             rgm.reset();
         }
-            
-
-
     }
 }
