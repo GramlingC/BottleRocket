@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class RealGameManager : MonoBehaviour {
     private BubbleManager bm;
@@ -127,7 +128,7 @@ public class RealGameManager : MonoBehaviour {
                 leastShakenPlayer = i;
             }
         }
-        toReturn += "The bottle exploded on Player " + (currentPlayer).ToString() + "'s turn!\n";
+        toReturn += "Exploded on Player " + (currentPlayer + 1).ToString() + "'s turn!\n";
         toReturn += "Player " + (mostShakenPlayer + 1).ToString() + " shook the bottle " + (shakeDist[mostShakenPlayer]).ToString() + " times!\n";
         toReturn += "Player " + (leastShakenPlayer + 1).ToString() + " contributed the least.\n";
 
@@ -145,6 +146,7 @@ public class RealGameManager : MonoBehaviour {
                 if (currentState == GameState.Anime)
                 {
                     Debug.Log(generateEndText());//TODO change this to assign text to a menu
+                    GameObject.FindGameObjectWithTag("gameButton").GetComponent<Text>().text = "Game Over!\n" + generateEndText();
                     //offer end game menu to go back to player num selection screen, or just to quit the app, cannot reset gamewithout reloading scene for some reason
                     gameRunning = false;
                 }

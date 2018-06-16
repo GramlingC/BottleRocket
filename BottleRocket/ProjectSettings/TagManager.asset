@@ -9,6 +9,7 @@ TagManager:
   - debug
   - howtoplay
   - ParticleSystem
+  - gameButton
   layers:
   - Default
   - TransparentFX

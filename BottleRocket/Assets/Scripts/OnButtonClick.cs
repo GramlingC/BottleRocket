@@ -23,12 +23,16 @@ public class OnButtonClick : MonoBehaviour {
         {
             rgm.onButtonDown();
             Debug.Log("Button Pressed!");
+            if(rgm.gameRunning)
+                GameObject.FindGameObjectWithTag("gameButton").GetComponent<Text>().text = "Shake It!";
         }
 
         else if(command == "release")//to detect when a button is no longer held in game while running
         {
             rgm.onButtonUp();
             Debug.Log("Button Released!");
+            if(rgm.gameRunning)
+                GameObject.FindGameObjectWithTag("gameButton").GetComponent<Text>().text = "Tap It!";
         }
 
         else if (command == "quit")
