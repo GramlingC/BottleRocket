@@ -91,7 +91,7 @@ public class RealGameManager : MonoBehaviour {
 
         if (currentState != GameState.Anime)
         {
-            if (true || prevAccInput.magnitude < accInput.magnitude && accInput.magnitude >= shakeThreshold)
+            if (prevAccInput.magnitude < accInput.magnitude && accInput.magnitude >= shakeThreshold)
             {
 
                 acceptShake();
@@ -126,6 +126,7 @@ public class RealGameManager : MonoBehaviour {
 
     private string generateEndText()
     {
+        GetComponent<AudioManager>().playSound(3);
         //NOTE: index 0 player is actually player 1
         string toReturn = "";
         int mostShaken = int.MinValue;
