@@ -15,6 +15,7 @@ public class OnButtonClick : MonoBehaviour {
 
         if (command == "start")
         {
+            rgm.GetComponent<AudioManager>().playSound(0);
             SceneManager.LoadScene("Tina");
             rgm.setupGame();
         }
@@ -37,6 +38,7 @@ public class OnButtonClick : MonoBehaviour {
 
         else if (command == "quit")
         {
+            rgm.GetComponent<AudioManager>().playSound(0);
             Application.Quit();
         }
 
@@ -44,11 +46,13 @@ public class OnButtonClick : MonoBehaviour {
         else if (command == "home")
         {
             //return to main menu
+            rgm.GetComponent<AudioManager>().playSound(0);
             SceneManager.LoadScene("MainMenu");
             rgm.reset();
         }
 
         else if (command == "about"){
+            rgm.GetComponent<AudioManager>().playSound(0);
             GameObject panel = GameObject.FindGameObjectWithTag("howtoplay");
             TogglePanel(panel);
         }
@@ -56,6 +60,7 @@ public class OnButtonClick : MonoBehaviour {
         else if (command == "partySize")
         {
             //go to change number of players
+            rgm.GetComponent<AudioManager>().playSound(0);
             SceneManager.LoadScene("PartySize");
             rgm.reset();
         }
@@ -64,6 +69,7 @@ public class OnButtonClick : MonoBehaviour {
         {
             if (rgm.numPlayers < 10)
             {
+                rgm.GetComponent<AudioManager>().playSound(0);
                 rgm.numPlayers++;
             }
                 
@@ -78,6 +84,7 @@ public class OnButtonClick : MonoBehaviour {
         {
             if (rgm.numPlayers > 2)
             {
+                rgm.GetComponent<AudioManager>().playSound(0);
                 rgm.numPlayers--;
             }
                 
@@ -90,6 +97,7 @@ public class OnButtonClick : MonoBehaviour {
 
         else if (command == "prompt")
         {
+            rgm.GetComponent<AudioManager>().playSound(0);
             SceneManager.LoadScene("EndGame");
             rgm.reset();
         }

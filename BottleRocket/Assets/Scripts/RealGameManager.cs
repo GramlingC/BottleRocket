@@ -87,6 +87,7 @@ public class RealGameManager : MonoBehaviour {
         {
             if (true || prevAccInput.magnitude < accInput.magnitude && accInput.magnitude >= shakeThreshold)
             {
+
                 acceptShake();
             }
         }
@@ -94,6 +95,7 @@ public class RealGameManager : MonoBehaviour {
 
     public void acceptShake()
     {
+        GetComponent<AudioManager>().playSound(2);
         Handheld.Vibrate();
 
         ++shakeDist[currentPlayer];
@@ -131,7 +133,12 @@ public class RealGameManager : MonoBehaviour {
         toReturn += "Exploded on Player " + (currentPlayer + 1).ToString() + "'s turn!\n";
         toReturn += "Player " + (mostShakenPlayer + 1).ToString() + " shook the bottle " + (shakeDist[mostShakenPlayer]).ToString() + " times!\n";
         toReturn += "Player " + (leastShakenPlayer + 1).ToString() + " contributed the least.\n";
-
+        toReturn = "";
+        toReturn += "Player : shakes\n";
+        for (int i = 0; i < numPlayers; ++i)
+        {
+            toReturn += (i + 1).ToString() + " : " + shakeDist[i].ToString() + '\n';
+        }
         return toReturn;
     }
 
