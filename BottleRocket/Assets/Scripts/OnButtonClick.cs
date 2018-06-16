@@ -19,6 +19,17 @@ public class OnButtonClick : MonoBehaviour {
             rgm.gameRunning = true;
         }
 
+        else if (command == "press")//for detecting button input from game while running
+        {
+            rgm.onButtonDown();
+            Debug.Log("Button Pressed!");
+        }
+
+        else if(command == "release")//to detect when a button is no longer held in game while running
+        {
+            rgm.onButtonUp();
+            Debug.Log("Button Released!");
+        }
 
         else if (command == "quit")
         {
