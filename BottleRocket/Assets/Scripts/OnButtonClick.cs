@@ -45,7 +45,8 @@ public class OnButtonClick : MonoBehaviour {
         }
 
         else if (command == "about"){
-            SceneManager.LoadScene("Rules");
+            GameObject panel = GameObject.FindGameObjectWithTag("howtoplay");
+            TogglePanel(panel);
         }
 
         else if (command == "partySize")
@@ -88,5 +89,24 @@ public class OnButtonClick : MonoBehaviour {
             SceneManager.LoadScene("EndGame");
             rgm.reset();
         }
+    }
+
+
+    void TogglePanel(GameObject panel)
+    {
+        if (panel.GetComponent<CanvasGroup>().alpha == 0)
+        {
+            panel.GetComponent<CanvasGroup>().alpha = 1;
+            panel.GetComponent<CanvasGroup>().interactable = true;
+            panel.GetComponent<CanvasGroup>().blocksRaycasts = true;
+        }
+        else
+        {
+            panel.GetComponent<CanvasGroup>().alpha = 0;
+            panel.GetComponent<CanvasGroup>().interactable = false;
+            panel.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        }
+
+
     }
 }
