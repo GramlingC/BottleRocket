@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class RealGameManager : MonoBehaviour {
-
+    
     public float shakeThreshold;
     public static bool created = false;
     public int numPlayers;
@@ -15,9 +15,12 @@ public class RealGameManager : MonoBehaviour {
 
     private Vector3 accInput = new Vector3(), prevAccInput = new Vector3();
 
+    GameObject debug;
+    Text stuff;
 
     void Awake()
     {
+        
         if (!created)
         {
             DontDestroyOnLoad(this.gameObject);
@@ -61,24 +64,38 @@ public class RealGameManager : MonoBehaviour {
 
     public void checkForShake()
     {
+        debug = GameObject.FindGameObjectWithTag("debug");
+        stuff = debug.GetComponent<Text>();
         prevAccInput = accInput;
         accInput = Input.acceleration;
         Debug.Log(accInput.magnitude);
+        
         if (prevAccInput.magnitude < accInput.magnitude && accInput.magnitude >= shakeThreshold)
         {
+            //stuff.text = "Detected at:" + accInput.magnitude;
             acceptShake();
+
+            
+      
+        }
+        else
+        {
+           // stuff.text = "Not detected at: " + accInput.magnitude;
         }
     }
 
     public void acceptShake()
     {
         Debug.Log("ShakeDetected!");
+        Handheld.Vibrate();
     }
 
 	// Update is called once per frame
 	void Update () {
+        
         if (isButtonDown)
         {
+            
             checkForShake();
         }
 		

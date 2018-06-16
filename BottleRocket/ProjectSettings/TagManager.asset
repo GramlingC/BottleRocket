@@ -6,6 +6,7 @@ TagManager:
   tags:
   - RealGameManager
   - NumPlayerUI
+  - debug
   layers:
   - Default
   - TransparentFX
