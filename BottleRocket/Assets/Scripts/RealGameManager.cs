@@ -34,25 +34,29 @@ public class RealGameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         numPlayers = 2;
-        shakeDict[0] = calmMin + Random.Range(0, calmMax - calmMin);
-        shakeDict[1] = slowMin + Random.Range(0, slowMax - slowMin);
-        shakeDict[2] = fastMin + Random.Range(0, fastMax - fastMin);
     }
 	
     //called upon exiting the game scene
     public void reset()
     {
         gameRunning = false;
+        currentState = GameState.Calm;
+        if(bm)
+            bm.ChangeBubble((int)currentState);
+        currentPlayer = 0;
         transform.GetChild(0).gameObject.SetActive(false);
     }
 
     public void setupGame()
     {
-        currentState = GameState.Calm;
         gameRunning = true;
         shakeDist = new int[numPlayers];
+        shakeDict[0] = calmMin + Random.Range(0, calmMax - calmMin);
+        shakeDict[1] = slowMin + Random.Range(0, slowMax - slowMin);
+        shakeDict[2] = fastMin + Random.Range(0, fastMax - fastMin);
         transform.GetChild(0).gameObject.SetActive(true);
-        bm = transform.GetChild(0).GetChild(1).GetComponent<BubbleManager>();
+        if(!bm)
+            bm = transform.GetChild(0).GetChild(1).GetComponent<BubbleManager>();
     }
 
     public void onButtonDown()
@@ -108,6 +112,12 @@ public class RealGameManager : MonoBehaviour {
         }
     }
 
+    public void restartGame()
+    {
+        reset();
+        setupGame();
+    }
+
     private string generateEndText()
     {
         //NOTE: index 0 player is actually player 1
@@ -128,9 +138,17 @@ public class RealGameManager : MonoBehaviour {
                 leastShakenPlayer = i;
             }
         }
-        toReturn += "Exploded on Player " + (currentPlayer + 1).ToString() + "'s turn!\n";
-        toReturn += "Player " + (mostShakenPlayer + 1).ToString() + " shook the bottle " + (shakeDist[mostShakenPlayer]).ToString() + " times!\n";
-        toReturn += "Player " + (leastShakenPlayer + 1).ToString() + " contributed the least.\n";
+        //toReturn += "Exploded on Player " + (currentPlayer + 1).ToString() + "'s turn!\n";
+        //toReturn += "Player " + (mostShakenPlayer + 1).ToString() + " shook the bottle " + (shakeDist[mostShakenPlayer]).ToString() + " times!\n";
+        //toReturn += "Player " + (leastShakenPlayer + 1).ToString() + " contributed the least.\n";
+        //toReturn = "";
+        toReturn += "Player : Shakes\n---------------\n";
+        for(int i = 0; i < numPlayers; ++i)
+        {
+            toReturn += (i + 1).ToString() + " : " + shakeDist[i].ToString() + '\n';
+            //toReturn += (shakeDist[i] == mostShaken) ? "  Max!" : "";
+            //toReturn += (shakeDist[i] == leastShaken) ? "  Min!\n" : "\n";
+        }
 
         return toReturn;
     }
@@ -146,9 +164,13 @@ public class RealGameManager : MonoBehaviour {
                 if (currentState == GameState.Anime)
                 {
                     Debug.Log(generateEndText());//TODO change this to assign text to a menu
-                    GameObject.FindGameObjectWithTag("gameButton").GetComponent<Text>().text = "Game Over!\n" + generateEndText();
+                    GameObject.FindGameObjectWithTag("gameButton").GetComponent<Text>().text = "Game Over!\n\n" + generateEndText();
                     //offer end game menu to go back to player num selection screen, or just to quit the app, cannot reset gamewithout reloading scene for some reason
                     gameRunning = false;
+
+                    //testing reset ability here
+                    //restartGame();
+                    GameObject.FindGameObjectWithTag("restartButton").SetActive(true);
                 }
             }
         }
