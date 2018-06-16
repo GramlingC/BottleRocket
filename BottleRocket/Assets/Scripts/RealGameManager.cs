@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 public class RealGameManager : MonoBehaviour {
     private BubbleManager bm;
     public float shakeThreshold;
@@ -19,8 +20,6 @@ public class RealGameManager : MonoBehaviour {
 
     private Vector3 accInput = new Vector3(), prevAccInput = new Vector3();
 
-    GameObject debug;
-    Text stuff;
 
     void Awake()
     {
@@ -48,6 +47,7 @@ public class RealGameManager : MonoBehaviour {
 
     public void setupGame()
     {
+        currentState = GameState.Calm;
         gameRunning = true;
         shakeDist = new int[numPlayers];
         transform.GetChild(0).gameObject.SetActive(true);
@@ -79,8 +79,6 @@ public class RealGameManager : MonoBehaviour {
 
     public void checkForShake()
     {
-        debug = GameObject.FindGameObjectWithTag("debug");
-        stuff = debug.GetComponent<Text>();
         prevAccInput = accInput;
         accInput = Input.acceleration;
 
@@ -95,7 +93,9 @@ public class RealGameManager : MonoBehaviour {
 
     public void acceptShake()
     {
-        //Handheld.Vibrate();
+        Handheld.Vibrate();
+
+        ++shakeDist[currentPlayer];
 
         //if(!--shakeDict[currentState])   ;-;
         
@@ -105,6 +105,33 @@ public class RealGameManager : MonoBehaviour {
             ++currentState;
             bm.ChangeBubble((int)currentState);
         }
+    }
+
+    private string generateEndText()
+    {
+        //NOTE: index 0 player is actually player 1
+        string toReturn = "";
+        int mostShaken = int.MinValue;
+        int mostShakenPlayer = 0;
+        int leastShaken = int.MaxValue;
+        int leastShakenPlayer = 0;
+        for (int i = 0; i < numPlayers; ++i)
+        {
+            if(shakeDist[i] > mostShaken)
+            {
+                mostShaken = shakeDist[i];
+                mostShakenPlayer = i;
+            }else if(shakeDist[i] < leastShaken)
+            {
+                leastShaken = shakeDist[i];
+                leastShakenPlayer = i;
+            }
+        }
+        toReturn += "The bottle exploded on Player " + (currentPlayer).ToString() + "'s turn!\n";
+        toReturn += "Player " + (mostShakenPlayer + 1).ToString() + " shook the bottle " + (shakeDist[mostShakenPlayer]).ToString() + " times!\n";
+        toReturn += "Player " + (leastShakenPlayer + 1).ToString() + " contributed the least.\n";
+
+        return toReturn;
     }
 
 	// Update is called once per frame
@@ -117,7 +144,9 @@ public class RealGameManager : MonoBehaviour {
                 checkForShake();
                 if (currentState == GameState.Anime)
                 {
-
+                    Debug.Log(generateEndText());//TODO change this to assign text to a menu
+                    //offer end game menu to go back to player num selection screen, or just to quit the app, cannot reset gamewithout reloading scene for some reason
+                    gameRunning = false;
                 }
             }
         }
