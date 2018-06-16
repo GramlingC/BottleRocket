@@ -20,6 +20,11 @@ public class OnButtonClick : MonoBehaviour {
             rgm.setupGame();
         }
 
+        else if (command == "restart")
+        {
+            rgm.restartGame();
+        }
+
         else if (command == "press")//for detecting button input from game while running
         {
             rgm.onButtonDown();

@@ -10,6 +10,7 @@ TagManager:
   - howtoplay
   - ParticleSystem
   - gameButton
+  - restartButton
   layers:
   - Default
   - TransparentFX

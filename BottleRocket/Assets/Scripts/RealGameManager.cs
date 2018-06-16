@@ -39,6 +39,7 @@ public class RealGameManager : MonoBehaviour {
     //called upon exiting the game scene
     public void reset()
     {
+        
         gameRunning = false;
         currentState = GameState.Calm;
         if(bm)
@@ -49,6 +50,7 @@ public class RealGameManager : MonoBehaviour {
 
     public void setupGame()
     {
+        
         gameRunning = true;
         shakeDist = new int[numPlayers];
         shakeDict[0] = calmMin + Random.Range(0, calmMax - calmMin);
@@ -118,6 +120,8 @@ public class RealGameManager : MonoBehaviour {
     {
         reset();
         setupGame();
+        GameObject.FindGameObjectWithTag("restartButton").transform.GetChild(0).gameObject.SetActive(false);
+        GameObject.FindGameObjectWithTag("gameButton").GetComponent<Text>().text = "Tap it!";
     }
 
     private string generateEndText()
@@ -172,7 +176,8 @@ public class RealGameManager : MonoBehaviour {
 
                     //testing reset ability here
                     //restartGame();
-                    GameObject.FindGameObjectWithTag("restartButton").SetActive(true);
+                    GameObject.FindGameObjectWithTag("restartButton").transform.GetChild(0).gameObject.SetActive(true);
+                    
                 }
             }
         }
