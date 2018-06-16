@@ -14,7 +14,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Scenes/PartySize.unity
     guid: 1afb24d7978fe694bb10dbc1904775f9
-  - enabled: 1
-    path: Assets/Scenes/Scenes/Rules.unity
-    guid: 1d30b2d3d6512a24cac62ae64947a27e
   m_configObjects: {}
