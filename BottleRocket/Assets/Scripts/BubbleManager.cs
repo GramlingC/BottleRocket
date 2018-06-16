@@ -21,7 +21,7 @@ public class BubbleManager : MonoBehaviour {
     }
     public void ChangeBubble(int gears)
     {
-        bubble.Clear();
+      //  bubble.Clear();
         bubble.playbackSpeed = settings[gears][0];
         bubble.emissionRate = settings[gears][1];
     }

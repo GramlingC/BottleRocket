@@ -8,6 +8,7 @@ TagManager:
   - NumPlayerUI
   - debug
   - howtoplay
+  - ParticleSystem
   layers:
   - Default
   - TransparentFX

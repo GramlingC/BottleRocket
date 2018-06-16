@@ -15,8 +15,8 @@ public class OnButtonClick : MonoBehaviour {
 
         if (command == "start")
         {
-            SceneManager.LoadScene("Game");
-            rgm.gameRunning = true;
+            SceneManager.LoadScene("Tina");
+            rgm.setupGame();
         }
 
         else if (command == "press")//for detecting button input from game while running
